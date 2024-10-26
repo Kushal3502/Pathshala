@@ -1,18 +1,25 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Auth } from "./pages";
-import { AuthContextProvider } from "./context/authContext";
+import { AuthLayout, Signin, Signup } from "./pages";
 
 const router = createBrowserRouter([
   {
     path: "/auth",
-    element: <Auth />,
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "signin",
+        element: <Signin />,
+      },
+      {
+        path: "signup",
+        element: <Signup />,
+      },
+    ],
   },
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <AuthContextProvider>
-    <RouterProvider router={router} />
-  </AuthContextProvider>
+  <RouterProvider router={router} />
 );

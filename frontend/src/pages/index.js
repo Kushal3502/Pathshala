@@ -1,3 +1,5 @@
-import Auth from "./auth";
+import AuthLayout from "./auth/AuthLayout";
+import Signin from "./auth/Signin";
+import Signup from "./auth/Signup";
 
-export { Auth };
+export { AuthLayout, Signin, Signup };
