@@ -9,9 +9,10 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { post } from "@/utils/api";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Signup() {
   const {
@@ -20,8 +21,18 @@ function Signup() {
     formState: { errors },
   } = useForm({ mode: "onChange" });
 
+  const navigate = useNavigate();
+
   const handleSignup = async (formdata) => {
     console.log(formdata);
+
+    try {
+      const user = await post("/users/signup", formdata);
+
+      navigate("/auth/signin");
+    } catch (error) {
+      console.log(error.data.message);
+    }
   };
 
   return (
