@@ -5,6 +5,8 @@ import {
   AuthLayout,
   Error,
   Instructor,
+  InstructorCourses,
+  InstructorDashBoard,
   Signin,
   Signup,
   Student,
@@ -42,6 +44,16 @@ const router = createBrowserRouter([
         <Instructor />
       </RoleProtectedRoute>
     ),
+    children: [
+      {
+        path: "",
+        element: <InstructorDashBoard />,
+      },
+      {
+        path: "courses",
+        element: <InstructorCourses />,
+      },
+    ],
   },
   {
     path: "*",
