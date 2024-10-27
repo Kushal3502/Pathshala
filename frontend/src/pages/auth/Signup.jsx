@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import useAuth from "@/context/authContext";
 import { post } from "@/utils/api";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -22,16 +23,17 @@ function Signup() {
   } = useForm({ mode: "onChange" });
 
   const navigate = useNavigate();
+  const { signup } = useAuth();
 
   const handleSignup = async (formdata) => {
     console.log(formdata);
 
-    try {
-      const user = await post("/users/signup", formdata);
+    const response = await signup(formdata);
 
+    if (response.success) {
       navigate("/auth/signin");
-    } catch (error) {
-      console.log(error.data.message);
+    } else {
+      console.log(response.message);
     }
   };
 

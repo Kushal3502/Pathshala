@@ -9,10 +9,11 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import useAuth from "@/context/AuthContext";
 import { post } from "@/utils/api";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Signin() {
   const {
@@ -21,15 +22,18 @@ function Signin() {
     formState: { errors },
   } = useForm({ mode: "onChange" });
 
+  const { signin } = useAuth();
+  const navigate = useNavigate();
+
   const handleSignin = async (formdata) => {
     console.log(formdata);
 
-    try {
-      const user = await post("/users/signin", formdata);
+    const response = await signin(formdata);
 
-      // navigate("/auth/signin");
-    } catch (error) {
-      console.log(error.data.message);
+    if (response.success) {
+      navigate("/");
+    } else {
+      console.log(response.message);
     }
   };
 
