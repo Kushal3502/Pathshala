@@ -10,7 +10,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import useAuth from "@/context/authContext";
-import { post } from "@/utils/api";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -123,7 +122,7 @@ function Signup() {
                   <div className="text-red-500">{errors.role.message}</div>
                 )}
               </div>
-              <Button className="w-full mt-2 text-base">Sign in</Button>
+              <Button className="w-full mt-2 text-base">Create account</Button>
             </div>
           </form>
         </CardContent>

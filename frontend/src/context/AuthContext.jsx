@@ -21,7 +21,7 @@ export const AuthContextProvider = ({ children }) => {
     try {
       const newUser = await post("/users/signup", formData);
       setUser(newUser.currentUser);
-      return { success: true };
+      return newUser;
     } catch (error) {
       console.error("Signup error:", error);
       return { success: false, message: error.data.message };
@@ -32,7 +32,7 @@ export const AuthContextProvider = ({ children }) => {
     try {
       const authenticatedUser = await post("/users/signin", formData);
       setUser(authenticatedUser.currentUser);
-      return { success: true };
+      return authenticatedUser;
     } catch (error) {
       console.error("Signin error:", error);
       return { success: false, message: error.data.message };
