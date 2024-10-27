@@ -1,21 +1,27 @@
-import { post } from "@/utils/api";
 import { createContext, useContext, useEffect, useState } from "react";
+import { post, get } from "@/utils/api";
 
 export const AuthContext = createContext(null);
 
 export const AuthContextProvider = ({ children }) => {
-  const [user, setUser] = useState(() => {
-    const storedUser = localStorage.getItem("user");
-    return storedUser ? JSON.parse(storedUser) : null;
-  });
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (user) {
-      localStorage.setItem("user", JSON.stringify(user));
-    } else {
-      localStorage.removeItem("user");
-    }
-  }, [user]);
+    const checkAuthStatus = async () => {
+      try {
+        const response = await get("/users/me");
+        if (response.currentUser) setUser(response.currentUser);
+      } catch (error) {
+        console.log("User not authenticated:", error);
+        setUser(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkAuthStatus();
+  }, []);
 
   const signup = async (formData) => {
     try {
@@ -39,13 +45,19 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem("user");
+  const logout = async () => {
+    try {
+      await post("/users/logout");
+      setUser(null);
+    } catch (error) {
+      console.log("Logout error :: ", error);
+    }
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, signin, signup, logout }}>
+    <AuthContext.Provider
+      value={{ user, isLoading, setUser, signin, signup, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

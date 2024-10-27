@@ -1,6 +1,10 @@
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
-import { generateCookies } from "../utils/generateCookies.js";
+import {
+  decodeToken,
+  generateCookies,
+  validateToken,
+} from "../utils/generateCookies.js";
 
 const signupUser = async (req, res) => {
   const { name, email, password, role } = req.body;
@@ -66,9 +70,15 @@ const signinUser = async (req, res) => {
         .json({ success: false, message: "Invalid credentials" });
     }
 
-    generateCookies(res, user._id);
-
     const currentUser = await User.findById(user._id).select("-password");
+
+    generateCookies(
+      res,
+      currentUser._id,
+      currentUser.name,
+      currentUser.email,
+      currentUser.role
+    );
 
     return res
       .status(200)
@@ -81,4 +91,22 @@ const signinUser = async (req, res) => {
   }
 };
 
-export { signupUser, signinUser };
+const logout = async (req, res) => {
+  res.clearCookie("token");
+  return res.status(200).json({ success: true, message: "User logged out" });
+};
+
+const checkAuth = async (req, res) => {
+  const token = req.cookies.token;
+
+  if (token && validateToken(token)) {
+    const user = decodeToken(token);
+    return res.status(200).json({ success: true, currentUser: user });
+  } else {
+    return res
+      .status(401)
+      .json({ success: false, message: "User not authenticated" });
+  }
+};
+
+export { signupUser, signinUser, logout, checkAuth };

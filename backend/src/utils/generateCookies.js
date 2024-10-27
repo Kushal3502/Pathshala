@@ -1,9 +1,13 @@
 import jwt from "jsonwebtoken";
 
-export const generateCookies = (res, userId) => {
-  const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
-    expiresIn: "7d",
-  });
+export const generateCookies = (res, userId, name, email, role) => {
+  const token = jwt.sign(
+    { userId, name, email, role },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "7d",
+    }
+  );
 
   res.cookie("token", token, {
     httpOnly: true,
@@ -13,4 +17,20 @@ export const generateCookies = (res, userId) => {
   });
 
   return token;
+};
+
+export const validateToken = (token) => {
+  try {
+    return jwt.verify(token, process.env.JWT_SECRET);
+  } catch (error) {
+    console.log("Invalid or expired token :: ", error);
+  }
+};
+
+export const decodeToken = (token) => {
+  try {
+    return jwt.decode(token);
+  } catch (error) {
+    console.log("Token decode falied :: ", error);
+  }
 };

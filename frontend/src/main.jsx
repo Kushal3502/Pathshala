@@ -1,7 +1,14 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { AuthLayout, Instructor, Signin, Signup, Student } from "./pages";
+import {
+  AuthLayout,
+  Error,
+  Instructor,
+  Signin,
+  Signup,
+  Student,
+} from "./pages";
 import { AuthContextProvider } from "./context/AuthContext";
 import RoleProtectedRoute from "./components/ProtectedRoute";
 
@@ -35,6 +42,10 @@ const router = createBrowserRouter([
         <Instructor />
       </RoleProtectedRoute>
     ),
+  },
+  {
+    path: "*",
+    element: <Error />,
   },
 ]);
 
