@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Book, ChartBar, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
@@ -8,7 +8,6 @@ import { Navbar } from "@/components";
 function Instructor() {
   const { logout } = useAuth();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("dashboard");
 
   const menuItems = [
     {
@@ -39,8 +38,8 @@ function Instructor() {
   return (
     <div className="h-screen flex flex-col">
       <Navbar />
-      <div className="flex h-full ">
-        <aside className="hidden md:block w-64 p-4 border-r-2 border-zinc-300 fixed h-full">
+      <div className="flex h-full mt-16">
+        <aside className="hidden md:block w-60 p-4 border-r-2 border-zinc-300 fixed h-full top-16">
           <h2 className="text-2xl mb-6 text-left">Instructor View</h2>
           <nav className="flex flex-col gap-2">
             {menuItems.map((item) => (
@@ -56,7 +55,7 @@ function Instructor() {
             ))}
           </nav>
         </aside>
-        <main className="flex-1 md:ml-64 overflow-y-auto p-4 bg-gray-300">
+        <main className="flex-1 md:ml-60 overflow-y-auto p-4 bg-gray-300">
           <Outlet />
         </main>
       </div>

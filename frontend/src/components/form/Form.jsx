@@ -52,7 +52,7 @@ function Form({ formData = [], onSubmit, buttonText }) {
                     ? fieldItem.options.map((optionItem) => (
                         <SelectItem
                           key={optionItem.id}
-                          value={optionItem.value}
+                          value={optionItem.id || optionItem.value}
                         >
                           {optionItem.label}
                         </SelectItem>

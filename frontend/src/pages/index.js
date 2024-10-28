@@ -5,6 +5,7 @@ import Error from "./Error";
 import Student from "./student/Student";
 import StudentDashBoard from "./student/StudentDashBoard";
 import Instructor from "./instructor/Instructor";
+import AddCourse from "./instructor/AddCourse";
 
 export {
   AuthLayout,
@@ -14,4 +15,5 @@ export {
   Student,
   StudentDashBoard,
   Instructor,
+  AddCourse,
 };

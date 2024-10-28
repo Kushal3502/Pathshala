@@ -10,15 +10,22 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Pencil, Trash2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function InstructorDashboard() {
+  const navigate = useNavigate();
+
   return (
     <div>
       <h1 className=" text-3xl font-semibold my-4">Dashboard</h1>
       <Card>
         <CardHeader className=" flex flex-row items-center justify-between">
           <CardTitle className="text-2xl">All courses</CardTitle>
-          <Button size="lg" className=" text-base">
+          <Button
+            size="lg"
+            className=" text-base"
+            onClick={() => navigate("/instructor/add-course")}
+          >
             Create new course
           </Button>
         </CardHeader>

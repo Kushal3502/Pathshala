@@ -2,6 +2,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import {
+  AddCourse,
   AuthLayout,
   Error,
   Instructor,
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: "courses",
         element: <InstructorCourses />,
+      },
+      {
+        path: "add-course",
+        element: <AddCourse />,
       },
     ],
   },
