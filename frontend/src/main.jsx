@@ -5,14 +5,13 @@ import {
   AuthLayout,
   Error,
   Instructor,
-  InstructorCourses,
-  InstructorDashBoard,
   Signin,
   Signup,
   Student,
 } from "./pages";
 import { AuthContextProvider } from "./context/AuthContext";
 import RoleProtectedRoute from "./components/ProtectedRoute";
+import { InstructorDashboard, InstructorCourses } from "./components";
 
 const router = createBrowserRouter([
   {
@@ -47,7 +46,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <InstructorDashBoard />,
+        element: <InstructorDashboard />,
       },
       {
         path: "courses",

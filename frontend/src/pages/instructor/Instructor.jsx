@@ -41,9 +41,7 @@ function Instructor() {
       <Navbar />
       <div className="flex h-full ">
         <aside className="hidden md:block w-64 p-4 border-r-2 border-zinc-300 fixed h-full">
-          <h2 className="text-2xl font-semibold mb-6 text-left">
-            Instructor View
-          </h2>
+          <h2 className="text-2xl mb-6 text-left">Instructor View</h2>
           <nav className="flex flex-col gap-2">
             {menuItems.map((item) => (
               <NavLink to={item.to} key={item.value}>
