@@ -1,9 +1,6 @@
-import React from "react";
-import { useForm, Controller } from "react-hook-form";
-import { Label } from "../ui/label";
+import { Controller } from "react-hook-form";
 import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { Textarea } from "../ui/textarea";
+import { Label } from "../ui/label";
 import {
   Select,
   SelectContent,
@@ -11,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { Textarea } from "../ui/textarea";
 
 function FormControls({
   formControls = [],
@@ -22,6 +20,11 @@ function FormControls({
 }) {
   function renderComponentByType(fieldItem) {
     let element = null;
+
+    const { onChange, ...rest } = register(
+      fieldItem.name,
+      fieldItem.validation
+    );
 
     switch (fieldItem.componentType) {
       case "Input":
@@ -36,9 +39,9 @@ function FormControls({
                 ...formData,
                 [fieldItem.name]: e.target.value,
               });
-              console.log(e.target.value);
+              onChange(e);
             }}
-            {...register(fieldItem.name, fieldItem.validation)}
+            {...rest}
           />
         );
         break;
@@ -86,13 +89,14 @@ function FormControls({
             id={fieldItem.name}
             name={fieldItem.name}
             placeholder={fieldItem.placeholder}
-            onChange={(e) =>
+            onChange={(e) => {
               setFormData({
                 ...formData,
                 [fieldItem.name]: e.target.value,
-              })
-            }
-            {...register(fieldItem.name, fieldItem.validation)}
+              });
+              onChange(e);
+            }}
+            {...rest}
           />
         );
         break;
@@ -104,13 +108,14 @@ function FormControls({
             name={fieldItem.name}
             placeholder={fieldItem.placeholder}
             type={fieldItem.type}
-            onChange={(e) =>
+            onChange={(e) => {
               setFormData({
                 ...formData,
                 [fieldItem.name]: e.target.value,
-              })
-            }
-            {...register(fieldItem.name, fieldItem.validation)}
+              });
+              onChange(e);
+            }}
+            {...rest}
           />
         );
         break;

@@ -1,4 +1,4 @@
-import { Form, FormControls } from "@/components";
+import { FormControls } from "@/components";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { courseLandingPageFormControls } from "@/config/config";
 import useInstructor from "@/context/InstructorContext";
