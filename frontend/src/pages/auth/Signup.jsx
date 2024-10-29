@@ -14,7 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Signup() {
   const navigate = useNavigate();
-  const { signup } = useAuth();
+  const { signUpFormData, setSignUpFormData, signup } = useAuth();
 
   const handleSignup = async (formdata) => {
     console.log(formdata);
@@ -41,9 +41,11 @@ function Signup() {
         </CardHeader>
         <CardContent>
           <Form
-            formData={signUpFormControls}
             onSubmit={handleSignup}
             buttonText={"Create account"}
+            formData={signUpFormData}
+            setFormData={setSignUpFormData}
+            formControls={signUpFormControls}
           />
         </CardContent>
         <CardFooter className="flex flex-col items-center text-gray-600 gap-2">

@@ -1,4 +1,5 @@
 import Navbar from "./navbar/Navbar";
+import FormControls from "./form/FormControls";
 import Form from "./form/Form";
 import InstructorCourses from "./instructor/InstructorCourses";
 import InstructorDashboard from "./instructor/InstructorDashboard";
@@ -8,6 +9,7 @@ import Settings from "./instructor/add-course/Settings";
 
 export {
   Navbar,
+  FormControls,
   Form,
   InstructorCourses,
   InstructorDashboard,

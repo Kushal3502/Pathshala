@@ -13,7 +13,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 function Signin() {
-  const { signin } = useAuth();
+  const { signInFormData, setSignInFormData, signin } = useAuth();
   const navigate = useNavigate();
 
   const handleSignin = async (formdata) => {
@@ -42,9 +42,11 @@ function Signin() {
         </CardHeader>
         <CardContent>
           <Form
-            formData={signInFormControls}
             onSubmit={handleSignin}
-            buttonText={"Sign in"}
+            buttonText={"Sign In"}
+            formData={signInFormData}
+            setFormData={setSignInFormData}
+            formControls={signInFormControls}
           />
         </CardContent>
         <CardFooter className="flex flex-col items-center text-gray-600 gap-2">

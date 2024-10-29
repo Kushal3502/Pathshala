@@ -13,6 +13,7 @@ import {
 import { AuthContextProvider } from "./context/AuthContext";
 import RoleProtectedRoute from "./components/ProtectedRoute";
 import { InstructorDashboard, InstructorCourses } from "./components";
+import { InstructorContextProvider } from "./context/InstructorContext";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <AuthContextProvider>
-    <RouterProvider router={router} />
+    <InstructorContextProvider>
+      <RouterProvider router={router} />
+    </InstructorContextProvider>
   </AuthContextProvider>
 );

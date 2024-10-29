@@ -44,14 +44,20 @@ export const signUpFormControls = [
     type: "select",
     componentType: "Select",
     options: [
-      { label: "Student", value: "Student" },
-      { label: "Instructor", value: "Instructor" },
+      { label: "Student", value: "student" },
+      { label: "Instructor", value: "instructor" },
     ],
     validation: {
       required: "Select your role",
     },
   },
 ];
+
+export const initialSignUpFormData = {
+  name: "",
+  email: "",
+  password: "",
+};
 
 export const signInFormControls = [
   {
@@ -83,6 +89,11 @@ export const signInFormControls = [
     },
   },
 ];
+
+export const initialSignInFormData = {
+  email: "",
+  password: "",
+};
 
 export const languageOptions = [
   { value: "english", label: "English" },
@@ -183,3 +194,16 @@ export const courseLandingPageFormControls = [
     placeholder: "Welcome message for students",
   },
 ];
+
+export const courseLandingInitialFormData = {
+  title: "",
+  category: "",
+  level: "",
+  primaryLanguage: "",
+  subtitle: "",
+  description: "",
+  pricing: "",
+  objectives: "",
+  welcomeMessage: "",
+  image: "",
+};
