@@ -34,6 +34,7 @@ function FormControls({
             name={fieldItem.name}
             placeholder={fieldItem.placeholder}
             type={fieldItem.type}
+            value={formData[fieldItem.name] || ""}
             onChange={(e) => {
               setFormData({
                 ...formData,
@@ -54,6 +55,7 @@ function FormControls({
             rules={fieldItem.validation}
             render={({ field }) => (
               <Select
+                value={formData[fieldItem.name] || ""}
                 onValueChange={(val) => {
                   setFormData((prev) => ({
                     ...prev,
@@ -89,6 +91,7 @@ function FormControls({
             id={fieldItem.name}
             name={fieldItem.name}
             placeholder={fieldItem.placeholder}
+            value={formData[fieldItem.name] || ""}
             onChange={(e) => {
               setFormData({
                 ...formData,
@@ -108,6 +111,7 @@ function FormControls({
             name={fieldItem.name}
             placeholder={fieldItem.placeholder}
             type={fieldItem.type}
+            value={formData[fieldItem.name] || ""}
             onChange={(e) => {
               setFormData({
                 ...formData,
