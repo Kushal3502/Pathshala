@@ -44,6 +44,17 @@ function Curriculum() {
     setCourseCurriculumFormData(currCurriculumData);
   };
 
+  const handleFreePreviewChange = (value, index) => {
+    const currCurriculumData = [...courseCurriculumFormData];
+
+    currCurriculumData[index] = {
+      ...currCurriculumData[index],
+      freePreview: value,
+    };
+
+    setCourseCurriculumFormData(currCurriculumData);
+  };
+
   const handleDeleteLecture = (index) => {
     setCourseCurriculumFormData(
       courseCurriculumFormData.filter((_, idx) => idx !== index)
@@ -64,18 +75,16 @@ function Curriculum() {
             <div className="flex gap-5 justify-between items-center">
               <h2 className=" text-xl font-semibold">Lecture {index + 1}</h2>
               <div className="flex items-center space-x-2">
-                <Switch id={`free-preview-${index + 1}`} />
+                <Switch
+                  id={`free-preview-${index + 1}`}
+                  onCheckedChange={(value) =>
+                    handleFreePreviewChange(value, index)
+                  }
+                  checked={item.freePreview}
+                />
                 <Label htmlFor={`free-preview-${index + 1}`}>
                   Free preview
                 </Label>
-                <div>
-                  <Button
-                    className=" bg-red-600 hover:bg-red-700 ml-3"
-                    onClick={() => handleDeleteLecture(index)}
-                  >
-                    <Trash2 />
-                  </Button>
-                </div>
               </div>
             </div>
             <div className="flex flex-col gap-2">
@@ -97,7 +106,20 @@ function Curriculum() {
             </div>
             <div className="flex flex-col gap-2">
               <Label>Video</Label>
-              <Input type="file" accept="video/*" />
+              <Input type="file" accept="video/*" 
+                onChange={(e) => handleFileChange(e, index)}
+              />
+            </div>
+            <div className=" flex justify-end">
+              {index > 0 ? (
+                <Button
+                  className=" bg-red-600 hover:bg-red-700 ml-3"
+                  onClick={() => handleDeleteLecture(index)}
+                >
+                  <Trash2 />
+                  <p>Delete lecture</p>
+                </Button>
+              ) : null}
             </div>
           </Card>
         ))}
