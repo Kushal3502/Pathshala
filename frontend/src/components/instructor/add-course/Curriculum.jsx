@@ -7,11 +7,16 @@ import { Textarea } from "@/components/ui/textarea";
 import { courseCurriculumInitialFormData } from "@/config/config";
 import useInstructor from "@/context/InstructorContext";
 import { Trash2 } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
+import { ScaleLoader } from "react-spinners";
 
 function Curriculum() {
-  const { courseCurriculumFormData, setCourseCurriculumFormData } =
-    useInstructor();
+  const {
+    courseCurriculumFormData,
+    setCourseCurriculumFormData,
+    mediaUpload,
+    loader,
+  } = useInstructor();
 
   const handleNewLecture = () => {
     setCourseCurriculumFormData([
@@ -53,6 +58,31 @@ function Curriculum() {
     };
 
     setCourseCurriculumFormData(currCurriculumData);
+  };
+
+  const handleFileChange = async (e, index) => {
+    const file = e.target.files[0];
+
+    const formData = new FormData();
+
+    formData.append("media", file);
+
+    const response = await mediaUpload(formData);
+
+    console.log(response);
+
+    if (response.success) {
+      const currCurriculumData = [...courseCurriculumFormData];
+
+      currCurriculumData[index] = {
+        ...currCurriculumData[index],
+        videoTitle: file.name,
+        public_id: response.data.public_id,
+        videoUrl: response.data.secure_url,
+      };
+
+      setCourseCurriculumFormData(currCurriculumData);
+    }
   };
 
   const handleDeleteLecture = (index) => {
@@ -106,10 +136,23 @@ function Curriculum() {
             </div>
             <div className="flex flex-col gap-2">
               <Label>Video</Label>
-              <Input type="file" accept="video/*" 
+              <Input
+                type="file"
+                accept="video/*"
                 onChange={(e) => handleFileChange(e, index)}
+                disabled={loader}
               />
+              {loader && <ScaleLoader color="#000000" className=" mx-auto" />}
             </div>
+            {courseCurriculumFormData[index].videoUrl && (
+              <video
+                className="mt-4"
+                src={item.videoUrl}
+                controls
+                width="100%"
+                style={{ maxWidth: "600px" }}
+              />
+            )}
             <div className=" flex justify-end">
               {index > 0 ? (
                 <Button
