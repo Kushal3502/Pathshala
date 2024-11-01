@@ -15,6 +15,7 @@ function Curriculum() {
     courseCurriculumFormData,
     setCourseCurriculumFormData,
     mediaUpload,
+    mediaDelete,
     loader,
   } = useInstructor();
 
@@ -61,6 +62,10 @@ function Curriculum() {
   };
 
   const handleFileChange = async (e, index) => {
+    const currCurriculumData = [...courseCurriculumFormData];
+
+    currCurriculumData[index].loading = true;
+
     const file = e.target.files[0];
 
     const formData = new FormData();
@@ -72,18 +77,19 @@ function Curriculum() {
     console.log(response);
 
     if (response.success) {
-      const currCurriculumData = [...courseCurriculumFormData];
-
       currCurriculumData[index] = {
         ...currCurriculumData[index],
         videoTitle: file.name,
         public_id: response.data.public_id,
         videoUrl: response.data.secure_url,
+        loading: false,
       };
 
       setCourseCurriculumFormData(currCurriculumData);
     }
   };
+
+  const handleReplaceVideo = async (index) => {};
 
   const handleDeleteLecture = (index) => {
     setCourseCurriculumFormData(
@@ -140,18 +146,23 @@ function Curriculum() {
                 type="file"
                 accept="video/*"
                 onChange={(e) => handleFileChange(e, index)}
-                disabled={loader}
+                disabled={courseCurriculumFormData[index].loading}
               />
-              {loader && <ScaleLoader color="#000000" className=" mx-auto" />}
+              {courseCurriculumFormData[index].loading && <ScaleLoader color="#000000" className=" mx-auto" />}
             </div>
             {courseCurriculumFormData[index].videoUrl && (
-              <video
-                className="mt-4"
-                src={item.videoUrl}
-                controls
-                width="100%"
-                style={{ maxWidth: "600px" }}
-              />
+              <div className=" flex gap-4 items-end">
+                <video
+                  className="mt-4"
+                  src={item.videoUrl}
+                  controls
+                  width="100%"
+                  style={{ maxWidth: "600px" }}
+                />
+                <Button onClick={(e) => handleReplaceVideo(index)}>
+                  Replace video
+                </Button>
+              </div>
             )}
             <div className=" flex justify-end">
               {index > 0 ? (
