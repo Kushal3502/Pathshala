@@ -26,12 +26,12 @@ const uploadMedia = async (req, res) => {
 };
 
 const deleteMedia = async (req, res) => {
-  const { publicId } = req.params;
+  const { type, publicId } = req.params;
 
   if (!publicId) throw new Error("Invalid publicId");
 
   try {
-    await deleteFromCloudinary(publicId);
+    await deleteFromCloudinary(type, publicId);
 
     return res.status(200).json({
       success: true,

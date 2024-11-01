@@ -87,7 +87,14 @@ function Curriculum() {
     }
   };
 
-  const handleReplaceVideo = async (index) => {};
+  const handleReplaceVideo = async (index) => {
+    const currCurriculumData = [...courseCurriculumFormData];
+    const currLectureVideoId = currCurriculumData[index].public_id;
+
+    const response = await mediaDelete(video, currLectureVideoId);
+
+    console.log(currLectureVideoId);
+  };
 
   const handleDeleteLecture = (index) => {
     setCourseCurriculumFormData(

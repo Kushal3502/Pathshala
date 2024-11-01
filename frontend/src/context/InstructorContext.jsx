@@ -35,10 +35,10 @@ export const InstructorContextProvider = ({ children }) => {
     }
   };
 
-  const mediaDelete = async (publicId) => {
+  const mediaDelete = async (type, publicId) => {
     setLoader(true);
     try {
-      const response = await del(`/media/delete/${publicId}`);
+      const response = await del(`/media/delete/${type}/${publicId}`);
 
       if (response.success) {
         return response;
