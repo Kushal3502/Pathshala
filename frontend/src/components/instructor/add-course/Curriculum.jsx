@@ -1,3 +1,4 @@
+import { Player } from "@/components";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -7,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { courseCurriculumInitialFormData } from "@/config/config";
 import useInstructor from "@/context/InstructorContext";
 import { Trash2 } from "lucide-react";
-import React, { useState } from "react";
+import React from "react";
 import { ScaleLoader } from "react-spinners";
 
 function Curriculum() {
@@ -16,15 +17,12 @@ function Curriculum() {
     setCourseCurriculumFormData,
     mediaUpload,
     mediaDelete,
-    loader,
   } = useInstructor();
 
   const handleNewLecture = () => {
     setCourseCurriculumFormData([
       ...courseCurriculumFormData,
-      {
-        ...courseCurriculumInitialFormData[0],
-      },
+      { ...JSON.parse(JSON.stringify(courseCurriculumInitialFormData[0])) },
     ]);
   };
 
@@ -148,17 +146,13 @@ function Curriculum() {
                 onChange={(e) => handleFileChange(e, index)}
                 disabled={courseCurriculumFormData[index].loading}
               />
-              {courseCurriculumFormData[index].loading && <ScaleLoader color="#000000" className=" mx-auto" />}
+              {courseCurriculumFormData[index].loading && (
+                <ScaleLoader color="#000000" className=" mx-auto" />
+              )}
             </div>
             {courseCurriculumFormData[index].videoUrl && (
               <div className=" flex gap-4 items-end">
-                <video
-                  className="mt-4"
-                  src={item.videoUrl}
-                  controls
-                  width="100%"
-                  style={{ maxWidth: "600px" }}
-                />
+                <Player url={courseCurriculumFormData[index].videoUrl} />
                 <Button onClick={(e) => handleReplaceVideo(index)}>
                   Replace video
                 </Button>

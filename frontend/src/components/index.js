@@ -6,6 +6,7 @@ import InstructorDashboard from "./instructor/InstructorDashboard";
 import Curriculum from "./instructor/add-course/Curriculum";
 import LandingPage from "./instructor/add-course/LandingPage";
 import Settings from "./instructor/add-course/Settings";
+import Player from "./player/Player";
 
 export {
   Navbar,
@@ -16,4 +17,5 @@ export {
   Curriculum,
   LandingPage,
   Settings,
+  Player,
 };
