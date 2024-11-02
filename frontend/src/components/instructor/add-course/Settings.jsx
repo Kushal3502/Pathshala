@@ -15,6 +15,24 @@ function Settings() {
   } = useInstructor();
 
   const handleFileChange = async (e) => {
+    if (courseLandingFormData.image) {
+      console.log("hi");
+      const response = await mediaDelete(
+        "image",
+        courseLandingFormData.image_id
+      );
+
+      console.log(response);
+
+      if (response.success) {
+        setCourseLandingFormData({
+          ...courseLandingFormData,
+          image: "",
+          image_id: "",
+        });
+      }
+    }
+
     const file = e.target.files[0];
 
     const formData = new FormData();
@@ -29,10 +47,11 @@ function Settings() {
       setCourseLandingFormData({
         ...courseLandingFormData,
         image: response.data.secure_url,
+        image_id: response.data.public_id,
       });
     }
   };
-
+  console.log(courseLandingFormData);
   return (
     <Card>
       <CardHeader>

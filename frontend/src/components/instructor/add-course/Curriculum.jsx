@@ -64,6 +64,30 @@ function Curriculum() {
 
     currCurriculumData[index].loading = true;
 
+    if (
+      currCurriculumData[index].public_id &&
+      currCurriculumData[index].videoUrl
+    ) {
+      const currLecture = currCurriculumData[index];
+
+      const response = await mediaDelete(
+        "video",
+        currCurriculumData[index].public_id
+      );
+
+      console.log(response);
+
+      if (response.success) {
+        currCurriculumData[index] = {
+          ...currLecture,
+          public_id: "",
+          videoUrl: "",
+        };
+
+        setCourseCurriculumFormData(currCurriculumData);
+      }
+    }
+
     const file = e.target.files[0];
 
     const formData = new FormData();
@@ -85,15 +109,6 @@ function Curriculum() {
 
       setCourseCurriculumFormData(currCurriculumData);
     }
-  };
-
-  const handleReplaceVideo = async (index) => {
-    const currCurriculumData = [...courseCurriculumFormData];
-    const currLectureVideoId = currCurriculumData[index].public_id;
-
-    const response = await mediaDelete(video, currLectureVideoId);
-
-    console.log(currLectureVideoId);
   };
 
   const handleDeleteLecture = (index) => {
@@ -158,12 +173,7 @@ function Curriculum() {
               )}
             </div>
             {courseCurriculumFormData[index].videoUrl && (
-              <div className=" flex gap-4 items-end">
-                <Player url={courseCurriculumFormData[index].videoUrl} />
-                <Button onClick={(e) => handleReplaceVideo(index)}>
-                  Replace video
-                </Button>
-              </div>
+              <Player url={courseCurriculumFormData[index].videoUrl} />
             )}
             <div className=" flex justify-end">
               {index > 0 ? (

@@ -20,7 +20,7 @@ function LandingPage() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Course Landing Page</CardTitle>
+        <CardTitle>Course Details</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(handlePublishCourse)}>

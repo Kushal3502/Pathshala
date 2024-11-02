@@ -11,23 +11,23 @@ function AddCourse() {
           <CardTitle className="text-2xl">Create new course</CardTitle>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue="curriculum" className="space-y-4">
-            <TabsList >
-              <TabsTrigger value="curriculum" className=" font-semibold">
-                Curriculum
+          <Tabs defaultValue="details" className="space-y-4">
+            <TabsList>
+              <TabsTrigger value="details" className=" font-semibold">
+                Course Details
               </TabsTrigger>
-              <TabsTrigger value="landing-page" className=" font-semibold">
-                Course Landing Page
+              <TabsTrigger value="curriculum" className=" font-semibold">
+                Course Curriculum
               </TabsTrigger>
               <TabsTrigger value="settings" className=" font-semibold">
                 Settings
               </TabsTrigger>
             </TabsList>
+            <TabsContent value="details">
+              <LandingPage />
+            </TabsContent>
             <TabsContent value="curriculum">
               <Curriculum />
-            </TabsContent>
-            <TabsContent value="landing-page">
-              <LandingPage />
             </TabsContent>
             <TabsContent value="settings">
               <Settings />
