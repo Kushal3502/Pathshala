@@ -54,6 +54,25 @@ export const InstructorContextProvider = ({ children }) => {
     }
   };
 
+  const addNewCourse = async (courseData) => {
+    setLoader(true);
+    try {
+      const response = await post("/courses/", courseData);
+
+      if (response.success) {
+        return response.course;
+      } else {
+        console.log("Course publish failed");
+        return null;
+      }
+    } catch (error) {
+      console.log("Course publish error ::", error.message);
+      return { error: error.message };
+    } finally {
+      setLoader(false);
+    }
+  };
+
   return (
     <InstructorContext.Provider
       value={{
@@ -63,6 +82,7 @@ export const InstructorContextProvider = ({ children }) => {
         setCourseCurriculumFormData,
         mediaUpload,
         mediaDelete,
+        addNewCourse,
         loader,
         setLoader,
       }}

@@ -1,9 +1,16 @@
 import React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import useInstructor from "@/context/InstructorContext";
 import { ScaleLoader } from "react-spinners";
+import { Button } from "@/components/ui/button";
 
 function Settings() {
   const {
@@ -11,6 +18,7 @@ function Settings() {
     setCourseLandingFormData,
     mediaUpload,
     mediaDelete,
+    addNewCourse,
     loader,
   } = useInstructor();
 
@@ -51,7 +59,19 @@ function Settings() {
       });
     }
   };
-  console.log(courseLandingFormData);
+
+  const handleNewCourse = async () => {
+    console.log(courseLandingFormData);
+
+    try {
+      const response = await addNewCourse(courseLandingFormData);
+
+      console.log(response);
+    } catch (error) {
+      console.log("Course publish error :: ", error);
+    }
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -72,6 +92,9 @@ function Settings() {
           )}
         </div>
       </CardContent>
+      <CardFooter className="flex justify-end">
+        <Button onClick={handleNewCourse}>Publish</Button>
+      </CardFooter>
     </Card>
   );
 }

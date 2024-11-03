@@ -22,8 +22,10 @@ app.use(cookieParser());
 // routes
 import userRouter from "./routes/user.routes.js";
 import mediaRouter from "./routes/media.routes.js";
+import courseRouter from "./routes/course.routes.js";
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/media", mediaRouter);
+app.use("/api/v1/courses", courseRouter);
 
 export default app;
