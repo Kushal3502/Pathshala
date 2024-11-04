@@ -9,7 +9,7 @@ import {
 
 const router = Router();
 
-router.route("/").get(getInstructorCourses).post(addNewCourse);
+router.route("/instructor/:instructorId").get(getInstructorCourses).post(addNewCourse);
 
 router
   .route("/:id")

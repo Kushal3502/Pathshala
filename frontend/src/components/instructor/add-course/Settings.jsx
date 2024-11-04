@@ -13,6 +13,7 @@ import { ScaleLoader } from "react-spinners";
 import { Button } from "@/components/ui/button";
 import { notifyError } from "@/utils/toast";
 import { useNavigate } from "react-router-dom";
+import useAuth from "@/context/AuthContext";
 
 function Settings() {
   const {
@@ -25,6 +26,8 @@ function Settings() {
     addNewLecture,
     loader,
   } = useInstructor();
+
+  const { user } = useAuth();
 
   const navigate = useNavigate();
 
@@ -68,7 +71,7 @@ function Settings() {
 
   const handleNewCourse = async () => {
     try {
-      const newCourse = await addNewCourse(courseLandingFormData);
+      const newCourse = await addNewCourse(user?.userId, courseLandingFormData);
       console.log("New Course created:", newCourse);
 
       if (newCourse && newCourse._id) {

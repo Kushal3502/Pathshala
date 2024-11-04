@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
 import {
@@ -11,9 +11,27 @@ import {
 } from "@/components/ui/table";
 import { Pencil, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import useAuth from "@/context/AuthContext";
+import useInstructor from "@/context/InstructorContext";
 
 function InstructorDashboard() {
   const navigate = useNavigate();
+
+  const { user } = useAuth();
+
+  const { fetchInstructorCourses, instructorCourses, setInstructorCourses } =
+    useInstructor();
+
+  const fetchCourse = async () => {
+    const response = await fetchInstructorCourses(user?.userId);
+
+    setInstructorCourses(response.courses);
+
+  };
+
+  useEffect(() => {
+    fetchCourse();
+  }, [user?.userId]);
 
   return (
     <div>
@@ -40,21 +58,23 @@ function InstructorDashboard() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow>
-                <TableCell className="font-semibold text-base">
-                  React Js Crash Course
-                </TableCell>
-                <TableCell>69</TableCell>
-                <TableCell>$6900</TableCell>
-                <TableCell className="text-right">
-                  <Button className="mr-2 bg-green-600 hover:bg-green-700">
-                    <Pencil />
-                  </Button>
-                  <Button className=" bg-red-600 hover:bg-red-700">
-                    <Trash2 />
-                  </Button>
-                </TableCell>
-              </TableRow>
+              {instructorCourses?.map((course) => (
+                <TableRow>
+                  <TableCell className="font-semibold text-base">
+                    {course?.title}
+                  </TableCell>
+                  <TableCell>{course?.students.length}</TableCell>
+                  <TableCell>Rs. {course?.pricing}</TableCell>
+                  <TableCell className="text-right">
+                    <Button className="mr-2 bg-green-600 hover:bg-green-700">
+                      <Pencil />
+                    </Button>
+                    <Button className=" bg-red-600 hover:bg-red-700">
+                      <Trash2 />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </CardContent>
