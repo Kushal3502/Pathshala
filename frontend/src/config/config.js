@@ -97,6 +97,7 @@ export const initialSignInFormData = {
 
 export const languageOptions = [
   { value: "english", label: "English" },
+  { value: "hindi", label: "Hindi" },
   { value: "spanish", label: "Spanish" },
   { value: "french", label: "French" },
   { value: "german", label: "German" },

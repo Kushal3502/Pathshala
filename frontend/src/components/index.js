@@ -7,6 +7,7 @@ import Curriculum from "./instructor/add-course/Curriculum";
 import LandingPage from "./instructor/add-course/LandingPage";
 import Settings from "./instructor/add-course/Settings";
 import Player from "./player/Player";
+import ToastProvider from "./toast/ToastProvider";
 
 export {
   Navbar,
@@ -18,4 +19,5 @@ export {
   LandingPage,
   Settings,
   Player,
+  ToastProvider,
 };

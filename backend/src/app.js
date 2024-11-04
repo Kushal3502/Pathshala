@@ -23,9 +23,11 @@ app.use(cookieParser());
 import userRouter from "./routes/user.routes.js";
 import mediaRouter from "./routes/media.routes.js";
 import courseRouter from "./routes/course.routes.js";
+import lecturRouter from "./routes/lecture.routes.js";
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/media", mediaRouter);
 app.use("/api/v1/courses", courseRouter);
+app.use("/api/v1/lectures", lecturRouter);
 
 export default app;

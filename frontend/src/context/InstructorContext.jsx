@@ -73,6 +73,26 @@ export const InstructorContextProvider = ({ children }) => {
     }
   };
 
+  const addNewLecture = async (courseId, lectureData) => {
+    setLoader(true);
+    try {
+      const response = await post(`/lectures/${courseId}`, lectureData);
+
+      if (response.success) {
+        console.log(response);
+        return response;
+      } else {
+        console.log("Lecture add failed");
+        return null;
+      }
+    } catch (error) {
+      console.log("Lecture add error ::", error.message);
+      return { error: error.message };
+    } finally {
+      setLoader(false);
+    }
+  };
+
   return (
     <InstructorContext.Provider
       value={{
@@ -83,6 +103,7 @@ export const InstructorContextProvider = ({ children }) => {
         mediaUpload,
         mediaDelete,
         addNewCourse,
+        addNewLecture,
         loader,
         setLoader,
       }}

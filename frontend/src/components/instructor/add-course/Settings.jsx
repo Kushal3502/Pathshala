@@ -11,16 +11,22 @@ import { Input } from "@/components/ui/input";
 import useInstructor from "@/context/InstructorContext";
 import { ScaleLoader } from "react-spinners";
 import { Button } from "@/components/ui/button";
+import { notifyError } from "@/utils/toast";
+import { useNavigate } from "react-router-dom";
 
 function Settings() {
   const {
     courseLandingFormData,
     setCourseLandingFormData,
+    courseCurriculumFormData,
     mediaUpload,
     mediaDelete,
     addNewCourse,
+    addNewLecture,
     loader,
   } = useInstructor();
+
+  const navigate = useNavigate();
 
   const handleFileChange = async (e) => {
     if (courseLandingFormData.image) {
@@ -61,12 +67,20 @@ function Settings() {
   };
 
   const handleNewCourse = async () => {
-    console.log(courseLandingFormData);
-
     try {
-      const response = await addNewCourse(courseLandingFormData);
+      const newCourse = await addNewCourse(courseLandingFormData);
+      console.log("New Course created:", newCourse);
 
-      console.log(response);
+      if (newCourse && newCourse._id) {
+        for (const lecture of courseCurriculumFormData) {
+          const newLecture = await addNewLecture(newCourse?._id, lecture);
+          console.log("New Lecture added:", newLecture);
+        }
+        navigate("/instructor");
+      } else {
+        notifyError("All fields are required");
+        throw new Error("Failed to create course.");
+      }
     } catch (error) {
       console.log("Course publish error :: ", error);
     }
