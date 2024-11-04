@@ -12,7 +12,11 @@ import {
 } from "./pages";
 import { AuthContextProvider } from "./context/AuthContext";
 import RoleProtectedRoute from "./components/ProtectedRoute";
-import { InstructorDashboard, InstructorCourses } from "./components";
+import {
+  InstructorDashboard,
+  InstructorCourses,
+  ToastProvider,
+} from "./components";
 import { InstructorContextProvider } from "./context/InstructorContext";
 
 const router = createBrowserRouter([
@@ -67,9 +71,11 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <AuthContextProvider>
-    <InstructorContextProvider>
-      <RouterProvider router={router} />
-    </InstructorContextProvider>
-  </AuthContextProvider>
+  <ToastProvider>
+    <AuthContextProvider>
+      <InstructorContextProvider>
+        <RouterProvider router={router} />
+      </InstructorContextProvider>
+    </AuthContextProvider>
+  </ToastProvider>
 );
